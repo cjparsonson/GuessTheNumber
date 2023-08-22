@@ -6,6 +6,8 @@ namespace GuessTheNumber.Shared
     public partial class Game
     {
         [Inject] ILogger<Game>? Logger { get; set; }
+        [CascadingParameter]
+        public ErrorHandler? ErrorHandler { get; set; }
         [Parameter] public int? Digits { get; set; }
         private int digitCount = 4;
         private string answer = "";
@@ -32,12 +34,13 @@ namespace GuessTheNumber.Shared
             Logger.LogInformation($"Answer is {answer}");
         }
         private void GuessAnswer()
-        {
+        {                
             var currGuess = new Row()
             {
                 Guess = guess,
                 Matches = new string[digitCount]
             };
+            
             for (int i = 0; i < digitCount; i++)
             {
                 if (answer[i] == guess[i])
@@ -59,6 +62,7 @@ namespace GuessTheNumber.Shared
             }
             guess = "";
             Logger.LogInformation(JsonSerializer.Serialize(guesses));
+                      
         }
         private void PlayAgain()
         {

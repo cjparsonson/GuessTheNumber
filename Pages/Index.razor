@@ -3,7 +3,9 @@
 <PageTitle>Guess The Number</PageTitle>
 <ErrorBoundary>
     <ChildContent>
-        <Game />
+        <ErrorHandler>
+            <Game />
+        </ErrorHandler>
     </ChildContent>
     <ErrorContent>
         <h1>You have entered an invalid guess.</h1>
